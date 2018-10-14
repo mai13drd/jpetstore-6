@@ -47,6 +47,7 @@ public class AccountService {
    */
   @Transactional
   public void insertAccount(Account account) {
+    System.out.println("Account : " + account + " " + account.getCity());
     accountMapper.insertAccount(account);
     accountMapper.insertProfile(account);
     accountMapper.insertSignon(account);
