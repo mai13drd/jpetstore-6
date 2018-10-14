@@ -82,7 +82,7 @@ public class OrderService {
    * @return the order
    */
   @Transactional
-  public Order getOrder(int orderId) {
+  public synchronized Order getOrder(int orderId) {
     Order order = orderMapper.getOrder(orderId);
     order.setLineItems(lineItemMapper.getLineItemsByOrderId(orderId));
 
