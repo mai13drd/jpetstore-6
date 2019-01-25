@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2017 the original author or authors.
+ *    Copyright 2010-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -27,24 +27,29 @@ import org.mybatis.jpetstore.domain.Order;
 import org.mybatis.jpetstore.mapper.ItemMapper;
 import org.mybatis.jpetstore.mapper.LineItemMapper;
 import org.mybatis.jpetstore.mapper.OrderMapper;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+import de.dagere.kopeme.annotations.Assertion;
+import de.dagere.kopeme.annotations.MaximalRelativeStandardDeviation;
+import de.dagere.kopeme.junit.testrunner.PerformanceTestRunnerJUnit;
+import org.junit.rules.TestRule;
+import org.junit.Rule;
+import de.dagere.kopeme.junit.rule.KoPeMeRule;
 
 /**
  * @author coderliux
- *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceTest {
 
   @Mock
   private ItemMapper itemMapper;
+
   @Mock
   private OrderMapper orderMapper;
+
   @Mock
   private LineItemMapper lineItemMapper;
 
@@ -53,28 +58,27 @@ public class OrderServiceTest {
 
   @Before
   public void setUp() throws Exception {
-
   }
 
   @Test
+  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 100, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 100, dataCollectors = "ONLYTIME")
   public void shouldReturnOrderWhenGivenOrderIdWithOutLineItems() {
-    //given
+    // given
     int orderId = 1;
     Order order = new Order();
     List<LineItem> lineItems = new ArrayList<LineItem>();
-
-    //when
+    // when
     when(orderMapper.getOrder(orderId)).thenReturn(order);
     when(lineItemMapper.getLineItemsByOrderId(orderId)).thenReturn(lineItems);
-
-    //then
+    // then
     assertThat(orderService.getOrder(orderId)).isEqualTo(order);
     assertThat(orderService.getOrder(orderId).getLineItems()).isEmpty();
   }
 
   @Test
+  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 100, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 100, dataCollectors = "ONLYTIME")
   public void shouldReturnOrderWhenGivenOrderIdExistedLineItems() {
-    //given
+    // given
     int orderId = 1;
     Order order = new Order();
     List<LineItem> lineItems = new ArrayList<LineItem>();
@@ -82,18 +86,18 @@ public class OrderServiceTest {
     String itemId = "abc";
     item.setItemId(itemId);
     lineItems.add(item);
-
-    //when
+    // when
     when(orderMapper.getOrder(orderId)).thenReturn(order);
     when(lineItemMapper.getLineItemsByOrderId(orderId)).thenReturn(lineItems);
     when(itemMapper.getItem(itemId)).thenReturn(new Item());
     when(itemMapper.getInventoryQuantity(itemId)).thenReturn(new Integer(5));
-
-    //then
+    // then
     Order expectedOrder = orderService.getOrder(orderId);
     assertThat(expectedOrder).isEqualTo(order);
     assertThat(expectedOrder.getLineItems()).hasSize(1);
     assertThat(expectedOrder.getLineItems().get(0).getItem().getQuantity()).isEqualTo(5);
   }
 
+  @Rule()
+  public TestRule kopemeRule = new KoPeMeRule(this);
 }
