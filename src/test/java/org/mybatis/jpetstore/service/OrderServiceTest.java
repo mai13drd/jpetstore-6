@@ -61,7 +61,7 @@ public class OrderServiceTest {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 100, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 100, dataCollectors = "ONLYTIME")
+  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 100, warmupExecutions = 50, logFullData = false, useKieker = false, timeout = 999999999, repetitions = 100, dataCollectors = "ONLYTIME")
   public void shouldReturnOrderWhenGivenOrderIdWithOutLineItems() {
     // given
     int orderId = 1;
@@ -76,7 +76,7 @@ public class OrderServiceTest {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 100, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 100, dataCollectors = "ONLYTIME")
+  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 100, warmupExecutions = 50, logFullData = false, useKieker = false, timeout = 999999999, repetitions = 100, dataCollectors = "ONLYTIME")
   public void shouldReturnOrderWhenGivenOrderIdExistedLineItems() {
     // given
     int orderId = 1;
