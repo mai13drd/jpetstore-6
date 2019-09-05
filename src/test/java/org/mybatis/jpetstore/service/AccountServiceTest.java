@@ -44,7 +44,7 @@ public class AccountServiceTest {
   private AccountService accountService;
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 100, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 100, dataCollectors = "ONLYTIME")
+  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 5000, warmupExecutions = 0, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
   public void shouldCallTheMapperToInsertAnAccount() {
     // given
     Account account = new Account();
