@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.LineItem;
 import org.mybatis.jpetstore.domain.Order;
@@ -31,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import de.dagere.kopeme.annotations.Assertion;
-import de.dagere.kopeme.annotations.MaximalRelativeStandardDeviation;
 import de.dagere.kopeme.junit.testrunner.PerformanceTestRunnerJUnit;
 import org.junit.rules.TestRule;
 import org.junit.Rule;
@@ -41,7 +38,7 @@ import de.dagere.kopeme.junit.rule.KoPeMeRule;
 /**
  * @author coderliux
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PerformanceTestRunnerJUnit.class)
 public class OrderServiceTest {
 
   @Mock
@@ -76,7 +73,7 @@ public class OrderServiceTest {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 100, warmupExecutions = 50, logFullData = false, useKieker = false, timeout = 999999999, repetitions = 100, dataCollectors = "ONLYTIME")
+  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 10000, warmupExecutions = 1, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
   public void shouldReturnOrderWhenGivenOrderIdExistedLineItems() {
     // given
     int orderId = 1;
