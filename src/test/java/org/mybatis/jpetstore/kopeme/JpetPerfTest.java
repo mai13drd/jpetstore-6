@@ -15,23 +15,21 @@
  */
 package org.mybatis.jpetstore.kopeme;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
 import de.dagere.kopeme.annotations.PerformanceTest;
 import de.dagere.kopeme.junit.testrunner.PerformanceTestRunnerJUnit;
 
 @RunWith(PerformanceTestRunnerJUnit.class)
-public class SimplePerfTest {
+class JpetPerfTest {
 
   @Test
-  @PerformanceTest(executionTimes = 20000, warmupExecutions = 0, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
-  public void test() {
-    int x = 0;
-    for (int i = 0; i < 100; i++) {
-      x = x + i;
-      System.out.println(x);
-    }
+  @PerformanceTest(executionTimes = 5, warmupExecutions = 3, logFullData = false, useKieker = false, timeout = 999999999, repetitions = 3, dataCollectors = "ONLYTIME")
+  void test() {
+    fail("Not yet implemented");
   }
 
 }
