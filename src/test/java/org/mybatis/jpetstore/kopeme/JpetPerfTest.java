@@ -1,3 +1,4 @@
+
 /**
  *    Copyright 2010-2019 the original author or authors.
  *
@@ -15,21 +16,40 @@
  */
 package org.mybatis.jpetstore.kopeme;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.jpetstore.domain.Order;
 
 import de.dagere.kopeme.annotations.PerformanceTest;
 import de.dagere.kopeme.junit.testrunner.PerformanceTestRunnerJUnit;
 
 @RunWith(PerformanceTestRunnerJUnit.class)
-class JpetPerfTest {
+public class JpetPerfTest {
 
-  @Test
-  @PerformanceTest(executionTimes = 5, warmupExecutions = 3, logFullData = false, useKieker = false, timeout = 999999999, repetitions = 3, dataCollectors = "ONLYTIME")
-  void test() {
-    fail("Not yet implemented");
-  }
+   @Test
+   @PerformanceTest(executionTimes = 100, warmupExecutions = 10, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
+   public void test() {
+      Order order = new Order();
+      order.setBillCity("Leipzig");
+      order.setBillState("Sachsen");
+      order.setBillCountry("Germany");
+      ArrayList<String> orderPlace = new ArrayList<String>();
+      orderPlace.add(order.getBillCity());
+      orderPlace.add(order.getBillState());
+      orderPlace.add(order.getBillCountry());
+      
+      ArrayList<String> expected = new ArrayList<String>();
+      expected.add("Leipzig");
+      expected.add("Sachsen");
+      expected.add("Germany");
 
+//      assertEquals(order.getBillCity(), "Leipzig");
+//      assertEquals(order.getBillState(), "Sachsen");
+//      assertEquals(order.getBillCountry(), "Germany");
+      assertEquals(orderPlace,expected);
+   }
 }

@@ -25,13 +25,25 @@ import de.dagere.kopeme.junit.testrunner.PerformanceTestRunnerJUnit;
 public class SimplePerfTest {
 
   @Test
-  @PerformanceTest(executionTimes = 20000, warmupExecutions = 0, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
+  @PerformanceTest(executionTimes = 1000, warmupExecutions = 0, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
   public void test() {
-    int x = 0;
-    for (int i = 0; i < 100; i++) {
-      x = x + i;
+    double x = 1;
+    for (int i = 1; i <= 100; i++) {
+      x = x * i;
+      x = Math.sqrt(x);
+      x = x * x - i++ / Math.exp(x);
       System.out.println(x);
     }
   }
+
+  // @Test
+  // public void debugTest() {
+  //
+  // int x = 0;
+  // for (int i = 0; i < 10; i++) {
+  // x = x + i;
+  // }
+  //
+  // }
 
 }

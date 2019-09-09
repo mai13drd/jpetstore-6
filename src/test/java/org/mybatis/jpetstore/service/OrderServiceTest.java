@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.LineItem;
 import org.mybatis.jpetstore.domain.Order;
@@ -30,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import de.dagere.kopeme.junit.testrunner.PerformanceTestRunnerJUnit;
 import org.junit.rules.TestRule;
 import org.junit.Rule;
 import de.dagere.kopeme.junit.rule.KoPeMeRule;
@@ -38,7 +38,7 @@ import de.dagere.kopeme.junit.rule.KoPeMeRule;
 /**
  * @author coderliux
  */
-@RunWith(PerformanceTestRunnerJUnit.class)
+@RunWith(MockitoJUnitRunner.class)
 public class OrderServiceTest {
 
   @Mock
