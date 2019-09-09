@@ -30,26 +30,26 @@ import de.dagere.kopeme.junit.testrunner.PerformanceTestRunnerJUnit;
 @RunWith(PerformanceTestRunnerJUnit.class)
 public class JpetPerfTest {
 
-   @Test
-   @PerformanceTest(executionTimes = 100, warmupExecutions = 10, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
-   public void test() {
-      Order order = new Order();
-      order.setBillCity("Leipzig");
-      order.setBillState("Sachsen");
-      order.setBillCountry("Germany");
-      ArrayList<String> orderPlace = new ArrayList<String>();
-      orderPlace.add(order.getBillCity());
-      orderPlace.add(order.getBillState());
-      orderPlace.add(order.getBillCountry());
-      
-      ArrayList<String> expected = new ArrayList<String>();
-      expected.add("Leipzig");
-      expected.add("Sachsen");
-      expected.add("Germany");
+  @Test
+  @PerformanceTest(executionTimes = 100, warmupExecutions = 10, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
+  public void test() {
+    Order order = new Order();
+    order.setBillCity("Leipzig");
+    order.setBillState("Sachsen");
+    order.setBillCountry("Germany");
+    ArrayList<String> orderPlace = new ArrayList<String>();
+    orderPlace.add(order.getBillCity());
+    orderPlace.add(order.getBillState());
+    orderPlace.add(order.getBillCountry());
 
-//      assertEquals(order.getBillCity(), "Leipzig");
-//      assertEquals(order.getBillState(), "Sachsen");
-//      assertEquals(order.getBillCountry(), "Germany");
-      assertEquals(orderPlace,expected);
-   }
+    ArrayList<String> expected = new ArrayList<String>();
+    expected.add("Leipzig");
+    expected.add("Sachsen");
+    expected.add("Germany");
+
+    //      assertEquals(order.getBillCity(), "Leipzig");
+    //      assertEquals(order.getBillState(), "Sachsen");
+    //      assertEquals(order.getBillCountry(), "Germany");
+    assertEquals(orderPlace, expected);
+  }
 }

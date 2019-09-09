@@ -87,19 +87,11 @@ public class OrderService {
     order.setLineItems(lineItemMapper.getLineItemsByOrderId(orderId));
 
     for (int i = 0; i < order.getLineItems().size(); i++) {
-      System.out.println("OS_Test!");
+      System.out.println("Test!");
       LineItem lineItem = order.getLineItems().get(i);
       Item item = itemMapper.getItem(lineItem.getItemId());
       item.setQuantity(itemMapper.getInventoryQuantity(lineItem.getItemId()));
       lineItem.setItem(item);
-    }
-
-    System.out.println("Test_2!");
-    try {
-      Thread.sleep(100);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
     }
 
     return order;
