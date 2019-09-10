@@ -31,7 +31,7 @@ import de.dagere.kopeme.junit.testrunner.PerformanceTestRunnerJUnit;
 public class JpetPerfTest {
 
   @Test
-  @PerformanceTest(executionTimes = 100, warmupExecutions = 10, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
+  @PerformanceTest(executionTimes = 8000, warmupExecutions = 200, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
   public void test() {
     Order order = new Order();
     order.setBillCity("Leipzig");
@@ -47,9 +47,6 @@ public class JpetPerfTest {
     expected.add("Sachsen");
     expected.add("Germany");
 
-    //      assertEquals(order.getBillCity(), "Leipzig");
-    //      assertEquals(order.getBillState(), "Sachsen");
-    //      assertEquals(order.getBillCountry(), "Germany");
     assertEquals(orderPlace, expected);
   }
 }

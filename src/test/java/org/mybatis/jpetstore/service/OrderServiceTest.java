@@ -15,11 +15,14 @@
  */
 package org.mybatis.jpetstore.service;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.LineItem;
@@ -58,23 +61,23 @@ public class OrderServiceTest {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 100, warmupExecutions = 50, logFullData = false, useKieker = false, timeout = 999999999, repetitions = 100, dataCollectors = "ONLYTIME")
+  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 4000, warmupExecutions = 200, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
   public void shouldReturnOrderWhenGivenOrderIdWithOutLineItems() {
     // given
     int orderId = 1;
     Order order = new Order();
     List<LineItem> lineItems = new ArrayList<LineItem>();
 
-    //    // when
-    //    when(orderMapper.getOrder(orderId)).thenReturn(order);
-    //    when(lineItemMapper.getLineItemsByOrderId(orderId)).thenReturn(lineItems);
-    //    // then
-    //    assertThat(orderService.getOrder(orderId)).isEqualTo(order);
-    //    assertThat(orderService.getOrder(orderId).getLineItems()).isEmpty();
+    // when
+    when(orderMapper.getOrder(orderId)).thenReturn(order);
+    when(lineItemMapper.getLineItemsByOrderId(orderId)).thenReturn(lineItems);
+    // then
+    assertThat(orderService.getOrder(orderId)).isEqualTo(order);
+    assertThat(orderService.getOrder(orderId).getLineItems()).isEmpty();
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 10000, warmupExecutions = 1, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
+  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1000, warmupExecutions = 0, logFullData = false, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
   public void shouldReturnOrderWhenGivenOrderIdExistedLineItems() {
     // given
     int orderId = 1;
@@ -94,8 +97,22 @@ public class OrderServiceTest {
     assertThat(expectedOrder).isEqualTo(order);
     assertThat(expectedOrder.getLineItems()).hasSize(1);
     assertThat(expectedOrder.getLineItems().get(0).getItem().getQuantity()).isEqualTo(5);
+
   }
 
   @Rule()
   public TestRule kopemeRule = new KoPeMeRule(this);
+
+  /*
+   * For running a performance-test, you have to make sure that the mocks are reset after each iteration! If not, your test will slow down and you will eventually run out of
+   * memory! See: https://stackoverflow.com/questions/17437660/mockito-throws-an-outofmemoryerror-on-a-simple-test
+   */
+  @After
+  public void resetMocks() {
+    System.out.println("bla!");
+    Mockito.reset(itemMapper);
+    Mockito.reset(orderMapper);
+    Mockito.reset(lineItemMapper);
+  }
+
 }
