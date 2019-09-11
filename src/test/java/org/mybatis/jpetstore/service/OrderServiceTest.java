@@ -61,7 +61,7 @@ public class OrderServiceTest {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 4000, warmupExecutions = 200, logFullData = true, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
+  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 4000, warmupExecutions = 200, logFullData = true, useKieker = false, timeout = Integer.MAX_VALUE, repetitions = 200, dataCollectors = "ONLYTIME")
   public void shouldReturnOrderWhenGivenOrderIdWithOutLineItems() {
     // given
     int orderId = 1;
@@ -77,7 +77,7 @@ public class OrderServiceTest {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1000, warmupExecutions = 0, logFullData = false, useKieker = false, timeout = 999999999, repetitions = 200, dataCollectors = "ONLYTIME")
+  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 10000, warmupExecutions = 0, logFullData = false, useKieker = false, timeout = Integer.MAX_VALUE, repetitions = 200, dataCollectors = "ONLYTIME")
   public void shouldReturnOrderWhenGivenOrderIdExistedLineItems() {
     // given
     int orderId = 1;
@@ -108,8 +108,7 @@ public class OrderServiceTest {
    * memory! See: https://stackoverflow.com/questions/17437660/mockito-throws-an-outofmemoryerror-on-a-simple-test
    */
   @After
-  public void resetMocks() {
-    System.out.println("bla!");
+  public void resetMocks() {    
     Mockito.reset(itemMapper);
     Mockito.reset(orderMapper);
     Mockito.reset(lineItemMapper);
