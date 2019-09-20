@@ -24,12 +24,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mybatis.jpetstore.domain.Account;
 import org.mybatis.jpetstore.mapper.AccountMapper;
-import de.dagere.kopeme.annotations.Assertion;
-import de.dagere.kopeme.annotations.MaximalRelativeStandardDeviation;
-import de.dagere.kopeme.junit.testrunner.PerformanceTestRunnerJUnit;
-import org.junit.rules.TestRule;
-import org.junit.Rule;
-import de.dagere.kopeme.junit.rule.KoPeMeRule;
 
 /**
  * @author Eduardo Macarron
@@ -37,25 +31,22 @@ import de.dagere.kopeme.junit.rule.KoPeMeRule;
 @RunWith(MockitoJUnitRunner.class)
 public class AccountServiceTest {
 
-  @Mock
-  private AccountMapper accountMapper;
+   @Mock
+   private AccountMapper accountMapper;
 
-  @InjectMocks
-  private AccountService accountService;
+   @InjectMocks
+   private AccountService accountService;
 
-  @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 5000, warmupExecutions = 0, logFullData = true, useKieker = false, timeout = Integer.MAX_VALUE, repetitions = 200, dataCollectors = "ONLYTIME")
-  public void shouldCallTheMapperToInsertAnAccount() {
-    // given
-    Account account = new Account();
-    // when
-    accountService.insertAccount(account);
-    // then
-    verify(accountMapper).insertAccount(eq(account));
-    verify(accountMapper).insertProfile(eq(account));
-    verify(accountMapper).insertSignon(eq(account));
-  }
+   @Test
+   public void shouldCallTheMapperToInsertAnAccount() {
+      // given
+      Account account = new Account();
+      // when
+      accountService.insertAccount(account);
+      // then
+      verify(accountMapper).insertAccount(eq(account));
+      verify(accountMapper).insertProfile(eq(account));
+      verify(accountMapper).insertSignon(eq(account));
+   }
 
-  @Rule()
-  public TestRule kopemeRule = new KoPeMeRule(this);
 }
