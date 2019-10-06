@@ -30,12 +30,12 @@ import static com.codeborne.selenide.Configuration.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.*;
 import static org.assertj.core.api.Assertions.*;
-import de.dagere.kopeme.annotations.Assertion;
-import de.dagere.kopeme.annotations.MaximalRelativeStandardDeviation;
-import org.junit.runner.RunWith;
-import de.dagere.kopeme.junit.testrunner.PerformanceTestRunnerJUnit;
-import org.junit.rules.TestRule;
-import de.dagere.kopeme.junit.rule.KoPeMeRule;
+//import org.junit.rules.TestRule;
+//import org.junit.runner.RunWith;
+//import de.dagere.kopeme.junit.testrunner.PerformanceTestRunnerJUnit;
+//import de.dagere.kopeme.annotations.Assertion;
+//import de.dagere.kopeme.annotations.MaximalRelativeStandardDeviation;
+//import de.dagere.kopeme.junit.rule.KoPeMeRule;
 
 /**
  * Integration tests for screen transition.
@@ -63,7 +63,7 @@ public class ScreenTransitionIT {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
+  //@de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
   public void testOrder() {
     // Open the home page
     open("/");
@@ -112,7 +112,7 @@ public class ScreenTransitionIT {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
+  //@de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
   public void testUpdateProfile() {
     // Open the home page
     open("/");
@@ -137,7 +137,7 @@ public class ScreenTransitionIT {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
+  //@de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
   public void testRegistrationUser() {
     // Open the home page
     open("/");
@@ -181,7 +181,7 @@ public class ScreenTransitionIT {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
+  //@de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
   public void testSelectItems() {
     // Open the home page
     open("/");
@@ -210,7 +210,7 @@ public class ScreenTransitionIT {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
+  //@de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
   public void testViewCart() {
     // Open the home page
     open("/");
@@ -224,7 +224,7 @@ public class ScreenTransitionIT {
   }
 
   @Test
-  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
+  //@de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 1, warmupExecutions = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, dataCollectors = "ONLYTIME")
   public void testViewHelp() {
     // Open the home page
     open("/");
@@ -246,6 +246,6 @@ public class ScreenTransitionIT {
     return orderId;
   }
 
-  @Rule()
-  public TestRule kopemeRule = new KoPeMeRule(this);
+  //  @Rule()
+  //  public TestRule kopemeRule = new KoPeMeRule(this);
 }

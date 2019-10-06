@@ -31,22 +31,22 @@ import org.mybatis.jpetstore.mapper.AccountMapper;
 @RunWith(MockitoJUnitRunner.class)
 public class AccountServiceTest {
 
-   @Mock
-   private AccountMapper accountMapper;
+  @Mock
+  private AccountMapper accountMapper;
 
-   @InjectMocks
-   private AccountService accountService;
+  @InjectMocks
+  private AccountService accountService;
 
-   @Test
-   public void shouldCallTheMapperToInsertAnAccount() {
-      // given
-      Account account = new Account();
-      // when
-      accountService.insertAccount(account);
-      // then
-      verify(accountMapper).insertAccount(eq(account));
-      verify(accountMapper).insertProfile(eq(account));
-      verify(accountMapper).insertSignon(eq(account));
-   }
+  @Test
+  public void shouldCallTheMapperToInsertAnAccount() {
+    // given
+    Account account = new Account();
+    // when
+    accountService.insertAccount(account);
+    // then
+    verify(accountMapper).insertAccount(eq(account));
+    verify(accountMapper).insertProfile(eq(account));
+    verify(accountMapper).insertSignon(eq(account));
+  }
 
 }

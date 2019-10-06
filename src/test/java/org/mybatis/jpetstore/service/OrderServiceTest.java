@@ -43,73 +43,78 @@ import de.dagere.kopeme.junit.rule.KoPeMeRule;
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceTest {
 
-   @Mock
-   private ItemMapper itemMapper;
+  @Mock
+  private ItemMapper itemMapper;
 
-   @Mock
-   private OrderMapper orderMapper;
+  @Mock
+  private OrderMapper orderMapper;
 
-   @Mock
-   private LineItemMapper lineItemMapper;
+  @Mock
+  private LineItemMapper lineItemMapper;
 
-   @InjectMocks
-   private OrderService orderService;
+  @InjectMocks
+  private OrderService orderService;
 
-   @Before
-   public void setUp() throws Exception {
-   }
+  @Before
+  public void setUp() throws Exception {
+  }
 
-   @Test
-   public void shouldReturnOrderWhenGivenOrderIdWithOutLineItems() {
-      // given
-      int orderId = 1;
-      Order order = new Order();
-      List<LineItem> lineItems = new ArrayList<LineItem>();
+  @Test
+  public void shouldReturnOrderWhenGivenOrderIdWithOutLineItems() {
+    // given
+    int orderId = 1;
+    Order order = new Order();
+    List<LineItem> lineItems = new ArrayList<LineItem>();
 
-      // when
-      when(orderMapper.getOrder(orderId)).thenReturn(order);
-      when(lineItemMapper.getLineItemsByOrderId(orderId)).thenReturn(lineItems);
-      // then
-      assertThat(orderService.getOrder(orderId)).isEqualTo(order);
-      assertThat(orderService.getOrder(orderId).getLineItems()).isEmpty();
-   }
+    // when
+    when(orderMapper.getOrder(orderId)).thenReturn(order);
+    when(lineItemMapper.getLineItemsByOrderId(orderId)).thenReturn(lineItems);
+    // then
+    assertThat(orderService.getOrder(orderId)).isEqualTo(order);
+    assertThat(orderService.getOrder(orderId).getLineItems()).isEmpty();
+  }
 
-   @Test
-   @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 10000, warmupExecutions = 200, logFullData = false, useKieker = false, timeout = Integer.MAX_VALUE, repetitions = 200, dataCollectors = "ONLYTIME")
-   public void shouldReturnOrderWhenGivenOrderIdExistedLineItems() {
-      // given
-      int orderId = 1;
-      Order order = new Order();
-      List<LineItem> lineItems = new ArrayList<LineItem>();
-      LineItem item = new LineItem();
-      String itemId = "abc";
-      item.setItemId(itemId);
-      lineItems.add(item);
-      // when
-      when(orderMapper.getOrder(orderId)).thenReturn(order);
-      when(lineItemMapper.getLineItemsByOrderId(orderId)).thenReturn(lineItems);
-      when(itemMapper.getItem(itemId)).thenReturn(new Item());
-      when(itemMapper.getInventoryQuantity(itemId)).thenReturn(new Integer(5));
-      // then
-      Order expectedOrder = orderService.getOrder(orderId);
-      assertThat(expectedOrder).isEqualTo(order);
-      assertThat(expectedOrder.getLineItems()).hasSize(1);
-      assertThat(expectedOrder.getLineItems().get(0).getItem().getQuantity()).isEqualTo(5);
+  @Test
+  @de.dagere.kopeme.annotations.PerformanceTest(executionTimes = 10, warmupExecutions = 3, logFullData = false, useKieker = false, timeout = Integer.MAX_VALUE, repetitions = 10, dataCollectors = "ONLYTIME")
+  public void shouldReturnOrderWhenGivenOrderIdExistedLineItems() {
 
-   }
+    System.out.println("This is a performance-test.");
 
-   @Rule()
-   public TestRule kopemeRule = new KoPeMeRule(this);
+    // given
+    int orderId = 1;
+    Order order = new Order();
+    List<LineItem> lineItems = new ArrayList<LineItem>();
+    LineItem item = new LineItem();
+    String itemId = "abc";
+    item.setItemId(itemId);
+    lineItems.add(item);
+    // when
+    when(orderMapper.getOrder(orderId)).thenReturn(order);
+    when(lineItemMapper.getLineItemsByOrderId(orderId)).thenReturn(lineItems);
+    when(itemMapper.getItem(itemId)).thenReturn(new Item());
+    when(itemMapper.getInventoryQuantity(itemId)).thenReturn(new Integer(5));
+    // then
+    Order expectedOrder = orderService.getOrder(orderId);
+    assertThat(expectedOrder).isEqualTo(order);
+    assertThat(expectedOrder.getLineItems()).hasSize(1);
+    assertThat(expectedOrder.getLineItems().get(0).getItem().getQuantity()).isEqualTo(5);
 
-   /*
-    * For running a performance-test, you have to make sure that the mocks are reset after each iteration! If not, your test will slow down and you will eventually run out of
-    * memory! See: https://stackoverflow.com/questions/17437660/mockito-throws-an-outofmemoryerror-on-a-simple-test
-    */
-   @After
-   public void resetMocks() {
-      Mockito.reset(itemMapper);
-      Mockito.reset(orderMapper);
-      Mockito.reset(lineItemMapper);
-   }
+  }
 
+  /*
+   * This class runs with the MockitoJUnitRunner.class. For running performanceTests, you have to set this rule!
+   */
+  @Rule()
+  public TestRule kopemeRule = new KoPeMeRule(this);
+
+  /*
+   * For running a performance-test, you have to make sure that the mocks are reset after each iteration! If not, your test will slow down and you will eventually run out of
+   * memory! See: https://stackoverflow.com/questions/17437660/mockito-throws-an-outofmemoryerror-on-a-simple-test
+   */
+  @After
+  public void resetMocks() {
+    Mockito.reset(itemMapper);
+    Mockito.reset(orderMapper);
+    Mockito.reset(lineItemMapper);
+  }
 }
