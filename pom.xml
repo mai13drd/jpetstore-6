@@ -121,6 +121,13 @@
 	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
 	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
 	the specific language governing permissions and limitations under the License. -->
+<!-- Copyright 2010-2019 the original author or authors. Licensed under the 
+	Apache License, Version 2.0 (the "License"); you may not use this file except 
+	in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0"
@@ -291,7 +298,7 @@
 			<groupId>de.dagere.kopeme</groupId>
 			<artifactId>kopeme-mojo</artifactId>
 			<version>0.9</version>
-			<scope>test</scope>
+			<!-- <scope>test</scope> -->
 		</dependency>
 
 	</dependencies>
@@ -378,7 +385,7 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
-		
+
 			<!-- The plugin has to be included here, not in pluginManagement or else 
 				it will not be executed. https://stackoverflow.com/questions/18557245/not-able-to-bind-plugin-goals-to-maven-lifecycle-phases 
 				If you get "plugin-execution-not-covered-by-lifecycle-configuration" read 
@@ -391,9 +398,11 @@
 				<executions>
 					<execution>
 						<configuration>
+							<methodTimeout>250000</methodTimeout>
+							<totalTimeout>1000000</totalTimeout>
 							<jvmStarts>5</jvmStarts>
+							<argLine>-Xmx512M -Xms256M</argLine>
 							<test>OrderServiceTest#shouldReturnOrderWhenGivenOrderIdExistedLineItems</test>
-							<methodTimeout>300000</methodTimeout>
 						</configuration>
 						<goals>
 							<goal>performanceTest</goal>
